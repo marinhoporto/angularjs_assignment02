@@ -5,18 +5,18 @@ console.log("Init IIFE");
 angular.module('ShoppingListCheckOff', [])
 .controller('ToBuyCtrl',ToBuyController)
 .controller('AlreadyBoughtCtrl', AlreadyBoughtController )
-.service('ShoppingListCheckOffService', ShoppingListCheckOffService);
+.service('ShoppingListCheckOffSvc', ShoppingListCheckOffService);
 console.log("Init controllers and service");
 
-ToBuyController.$inject = ['ShoppingListCheckOffService'];
-function ToBuyController(ShoppingListCheckOffService) {
+ToBuyController.$inject = ['ShoppingListCheckOffSvc'];
+function ToBuyController(ShoppingListCheckOffSvc) {
      console.log("Init ToBuyController");
      var list = this;
-     list.items_buy = ShoppingListCheckOffService.getBuy();
+     list.items_buy = ShoppingListCheckOffSvc.getBuy();
      console.log("list.items_buy", list.items_buy, "size is: ", list.items_buy.length);
      list.errorMessage;
      list.buyItem = function(itemIndex){
-          ShoppingListCheckOffService.buyItem(itemIndex);
+          ShoppingListCheckOffSvc.buyItem(itemIndex);
           if(list.items_buy.length == 0)
               list.errorMessage = "Everything is bought!";
           else
@@ -24,12 +24,12 @@ function ToBuyController(ShoppingListCheckOffService) {
      };
 }
 
- AlreadyBoughtController.$inject = ['ShoppingListCheckOffService'];
- function AlreadyBoughtController(ShoppingListCheckOffService) {
+ AlreadyBoughtController.$inject = ['ShoppingListCheckOffSvc'];
+ function AlreadyBoughtController(ShoppingListCheckOffSvc) {
      console.log("Init AlreadyBoughtController");
      var list = this;
-     list.errorMessage = ShoppingListCheckOffService.getMessageNothingBought();
-     list.items_bought = ShoppingListCheckOffService.getBought();
+     list.errorMessage = ShoppingListCheckOffSvc.getMessageNothingBought();
+     list.items_bought = ShoppingListCheckOffSvc.getBought();
      console.log("list.items_bought", list.items_bought, "size is: ", list.items_bought.length);
  }
 
